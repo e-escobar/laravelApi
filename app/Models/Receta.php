@@ -12,4 +12,13 @@ class Receta extends Model
     public function etiquetas(){
         return $this->belongsToMany(Etiqueta::class);
     }
+
+    public function categoria(){
+        return $this->belongsTo(Categoria::class);
+    }
+
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
+    
 }
