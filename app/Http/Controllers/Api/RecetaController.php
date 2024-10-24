@@ -4,17 +4,21 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 use App\Http\Resources\RecetaResource;
-use App\Http\Requests\StoreRecetasRequest;
-use Symfony\Component\HttpFoundation\Response;
 
+use App\Http\Requests\StoreRecetasRequest;
 use App\Http\Requests\UpdateRecetasRequest;
+
+use Symfony\Component\HttpFoundation\Response;
 
 use App\Models\Receta;
 
 class RecetaController extends Controller
 {
+    use AuthorizesRequests;
+
     public function index(){
         $recetas = Receta::with('categoria','etiquetas','user')->get();
         return RecetaResource::collection($recetas);
@@ -35,6 +39,8 @@ class RecetaController extends Controller
     }
 
     public function update(UpdateRecetasRequest $request, Receta $receta){
+        $this->authorize('update', $receta);
+
         $receta->update($request->all());
 
         if($etiquetas = json_decode($request->etiquetas)){
@@ -46,6 +52,8 @@ class RecetaController extends Controller
     }
 
     public function destroy(Receta $receta){
+        $this->authorize('delete', $receta);
+
         $receta->delete();
         return response()->json(null, Response::HTTP_NO_CONTENT); // 204 No Content
     }
