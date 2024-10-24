@@ -21,7 +21,8 @@ class RecetaController extends Controller
     }
 
     public function store(StoreRecetasRequest $request){
-        $receta = Receta::create($request->all());
+        //$receta = Receta::create($request->all());
+        $receta = $request->user()->recetas()->create($request->all());
         $receta->etiquetas()->attach(json_decode($request->etiquetas));
 
         return response()->json(new RecetaResource($receta), 
