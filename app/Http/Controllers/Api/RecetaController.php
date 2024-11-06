@@ -20,11 +20,15 @@ class RecetaController extends Controller
     use AuthorizesRequests;
 
     public function index(){
+        $this->authorize('Ver recetas');
+
         $recetas = Receta::with('categoria','etiquetas','user')->get();
         return RecetaResource::collection($recetas);
     }
 
     public function store(StoreRecetasRequest $request){
+        $this->authorize('Crear recetas');
+
         //$receta = Receta::create($request->all());
         $receta = $request->user()->recetas()->create($request->all());
         $receta->etiquetas()->attach(json_decode($request->etiquetas));
@@ -34,11 +38,15 @@ class RecetaController extends Controller
     }
 
     public function show(Receta $receta){
+        $this->authorize('Ver recetas');
+
         $receta = $receta->load('categoria','etiquetas','user');
         return new RecetaResource($receta);
     }
 
     public function update(UpdateRecetasRequest $request, Receta $receta){
+        $this->authorize('Editar recetas');
+
         $this->authorize('update', $receta);
 
         $receta->update($request->all());
@@ -52,6 +60,8 @@ class RecetaController extends Controller
     }
 
     public function destroy(Receta $receta){
+        $this->authorize('Eliminar recetas');
+        
         $this->authorize('delete', $receta);
 
         $receta->delete();
