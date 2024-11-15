@@ -17,7 +17,7 @@ use App\Models\Receta;
 
 class RecetaController extends Controller
 {
-    use AuthorizesRequests;
+    use AuthorizesRequests;  
 
     public function index(){
         $this->authorize('Ver recetas');
@@ -32,6 +32,10 @@ class RecetaController extends Controller
         //$receta = Receta::create($request->all());
         $receta = $request->user()->recetas()->create($request->all());
         $receta->etiquetas()->attach(json_decode($request->etiquetas));
+
+        // Almacenar la imagen en el servidor
+        $receta->imagen = $request->file('imagen')->store('recetas','public');
+        $receta->save();
 
         return response()->json(new RecetaResource($receta), 
                                 Response::HTTP_CREATED); // 201 Created
@@ -55,14 +59,20 @@ class RecetaController extends Controller
             $receta->etiquetas()->sync($etiquetas);
         }
 
+        // Modificar la imagen en el servidor si se envía una nueva imagen
+        if($request->file('imagen')){
+            $receta->imagen = $request->file('imagen')->store('recetas','public');
+            $receta->save();
+        }
+
         return response()->json(new RecetaResource($receta), 
                                 Response::HTTP_ACCEPTED); // 202 Accepted
     }
 
     public function destroy(Receta $receta){
-        $this->authorize('Eliminar recetas');
+        //$this->authorize('Eliminar recetas');
         
-        $this->authorize('delete', $receta);
+        //$this->authorize('delete', $receta);
 
         $receta->delete();
         return response()->json(null, Response::HTTP_NO_CONTENT); // 204 No Content
