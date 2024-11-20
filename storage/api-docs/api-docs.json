@@ -1,0 +1,294 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Documentación para API REST de Recetas",
+        "contact": {
+            "email": "eescobar@cdhidalgo.tecnm.mx"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8000"
+        }
+    ],
+    "paths": {
+        "/api/recetas": {
+            "get": {
+                "tags": [
+                    "Recetas"
+                ],
+                "summary": "Consultar todas las recetas",
+                "description": "Retorna todas las recetas",
+                "operationId": "7fe2d12ff17a51d03f3e797a145cb881",
+                "responses": {
+                    "200": {
+                        "description": "Operación exitosa",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "No autorizado"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Recetas"
+                ],
+                "summary": "Crear receta",
+                "description": "Crear una nueva receta",
+                "operationId": "aeb79d1b0a18743ea7d108a7df38c6a8",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "categoria_id",
+                                    "titulo",
+                                    "descripcion",
+                                    "ingredientes",
+                                    "instrucciones",
+                                    "imagen",
+                                    "etiquetas"
+                                ],
+                                "properties": {
+                                    "categoria_id": {
+                                        "type": "integer",
+                                        "example": "1"
+                                    },
+                                    "titulo": {
+                                        "type": "string",
+                                        "example": "Receta 1"
+                                    },
+                                    "descripcion": {
+                                        "type": "string",
+                                        "example": "descripcion de la receta"
+                                    },
+                                    "ingredientes": {
+                                        "type": "string",
+                                        "example": "Preparación de la receta"
+                                    },
+                                    "instrucciones": {
+                                        "type": "string",
+                                        "example": "instrucciones de la receta"
+                                    },
+                                    "imagen": {
+                                        "type": "string",
+                                        "format": "binary"
+                                    },
+                                    "etiquetas": {
+                                        "type": "string",
+                                        "example": "[1,2,3]"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Receta creada"
+                    },
+                    "403": {
+                        "description": "No autorizado"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        },
+        "/api/recetas/{receta}": {
+            "get": {
+                "tags": [
+                    "Recetas"
+                ],
+                "summary": "Obtener receta por ID",
+                "description": "Retorna una receta con su categoría, etiquetas y usuario asociados.",
+                "operationId": "1010f9af8f4f3419b6a6a0f90585c74e",
+                "parameters": [
+                    {
+                        "name": "receta",
+                        "in": "path",
+                        "description": "ID de la receta",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Receta",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "No autorizado"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Recetas"
+                ],
+                "summary": "Actualizar receta",
+                "description": "Actualizar una receta por su ID",
+                "operationId": "6f0268054c67af41fadae502b4f71b1c",
+                "parameters": [
+                    {
+                        "name": "receta",
+                        "in": "path",
+                        "description": "ID de la receta",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "categoria_id",
+                                    "titulo",
+                                    "descripcion",
+                                    "ingredientes",
+                                    "instrucciones",
+                                    "etiquetas"
+                                ],
+                                "properties": {
+                                    "categoria_id": {
+                                        "type": "integer",
+                                        "example": "1"
+                                    },
+                                    "titulo": {
+                                        "type": "string",
+                                        "example": "Receta 1"
+                                    },
+                                    "descripcion": {
+                                        "type": "string",
+                                        "example": "Descripción de la receta"
+                                    },
+                                    "ingredientes": {
+                                        "type": "string",
+                                        "example": "Ingredientes de la receta"
+                                    },
+                                    "instrucciones": {
+                                        "type": "string",
+                                        "example": "Instrucciones de la receta"
+                                    },
+                                    "etiquetas": {
+                                        "type": "string",
+                                        "example": "[1,2,3]"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "202": {
+                        "description": "Receta actualizada",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "No autorizado"
+                    },
+                    "404": {
+                        "description": "Receta no encontrada"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Recetas"
+                ],
+                "summary": "Eliminar receta",
+                "description": "Elimina una receta por su ID.",
+                "operationId": "ddc200837c2f9d4412339fd1be688396",
+                "parameters": [
+                    {
+                        "name": "receta",
+                        "in": "path",
+                        "description": "ID de la receta",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Receta eliminada con éxito",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "No autorizado"
+                    },
+                    "404": {
+                        "description": "Receta no encontrada"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Recetas",
+            "description": "Recetas"
+        }
+    ],
+    "components": {
+        "securitySchemes": {
+            "bearer_token": {
+                "type": "apiKey",
+                "description": "Sacntum bearer token",
+                "name": "Authorization",
+                "in": "header"
+            }
+        }
+    }
+}

@@ -9,6 +9,10 @@ use App\Http\Controllers\Api\LoginController;
 
 Route::post('login', [LoginController::class, 'store']);
 
+Route::options('{all:.*}', function(){
+    return response()->json();
+});
+
 Route::middleware('auth:sanctum')->group(function(){
     Route::get('categorias', [CategoriaController::class, 'index']);
     Route::get('categorias/{categoria}', [CategoriaController::class, 'show']);

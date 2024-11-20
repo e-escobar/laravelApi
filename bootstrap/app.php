@@ -20,6 +20,10 @@ return Application::configure(basePath: dirname(__DIR__))
             'verified' => \App\Http\Middleware\EnsureEmailIsVerified::class,
         ]);
 
+        $middleware->validateCsrfTokens(except: [
+            'http://localhost:8000/*',
+        ]);
+
         //
     })
     ->withExceptions(function (Exceptions $exceptions) {
