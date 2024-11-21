@@ -29,11 +29,18 @@ class RecetaController extends Controller
      *    @OA\Response(
      *       response=200,
      *      description="Operación exitosa",
-     *     @OA\JsonContent()
      *   ),
      *   @OA\Response(
      *     response=403,
      *     description="No autorizado"
+     *   ),
+     *   @OA\Response(
+     *     response=404,
+     *     description="No se encontraron recetas"
+     *   ),
+     *   @OA\Response(
+     *    response=405,
+     *    description="Método no permitido"
      *   )
      * )
      */
@@ -80,8 +87,6 @@ class RecetaController extends Controller
      * )
      */
 
-     
-
     public function store(StoreRecetasRequest $request){
         $this->authorize('Crear recetas');
 
@@ -116,7 +121,6 @@ class RecetaController extends Controller
      *     @OA\Response(
      *        response=200,
      *        description="Receta",
-     *        @OA\JsonContent()
      *     ),
      *     @OA\Response(
      *        response=403,
@@ -132,7 +136,6 @@ class RecetaController extends Controller
         return new RecetaResource($receta);
     }
 
-    // generar la documentación de Swagger para put requiriendo id de receta,"categoria_id","titulo","descripcion","ingredientes","instrucciones","imagen","etiquetas"
     /**
      * @OA\Put(
      *    path="/api/recetas/{receta}",
@@ -167,7 +170,6 @@ class RecetaController extends Controller
      *    @OA\Response(
      *       response=202,
      *       description="Receta actualizada",
-     *      @OA\JsonContent()
      *    ),
      *    @OA\Response(
      *       response=403,
@@ -200,37 +202,36 @@ class RecetaController extends Controller
                                 Response::HTTP_ACCEPTED); // 202 Accepted
     }
 
-    /**
- * @OA\Delete(
- *    path="/api/recetas/{receta}",
- *    summary="Eliminar receta",
- *    description="Elimina una receta por su ID.",
- *    tags={"Recetas"},
- *    security={{"bearer_token": {}}},
- *    @OA\Parameter(
- *        name="receta",
- *        description="ID de la receta",
- *        required=true,
- *        in="path",
- *        @OA\Schema(
- *           type="integer"
- *        )
- *     ),
- *    @OA\Response(
- *       response=204,
- *       description="Receta eliminada con éxito",
- *       @OA\JsonContent()
- *    ),
- *    @OA\Response(
- *       response=403,
- *       description="No autorizado",
- *    ),
- *    @OA\Response(
- *       response=404,
- *       description="Receta no encontrada"
- *    )
- * )
- */
+/**
+    * @OA\Delete(
+    *    path="/api/recetas/{receta}",
+    *    summary="Eliminar receta",
+    *    description="Elimina una receta por su ID.",
+    *    tags={"Recetas"},
+    *    security={{"bearer_token": {}}},
+    *    @OA\Parameter(
+    *        name="receta",
+    *        description="ID de la receta",
+    *        required=true,
+    *        in="path",
+    *        @OA\Schema(
+    *           type="integer"
+    *        )
+    *     ),
+    *    @OA\Response(
+    *       response=204,
+    *       description="Receta eliminada con éxito",
+    *    ),
+    *    @OA\Response(
+    *       response=403,
+    *       description="No autorizado",
+    *    ),
+    *    @OA\Response(
+    *       response=404,
+    *       description="Receta no encontrada"
+    *    )
+    * )
+*/
 
     public function destroy(Receta $receta){
         //$this->authorize('Eliminar recetas');

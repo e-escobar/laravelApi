@@ -23,15 +23,16 @@
                 "operationId": "7fe2d12ff17a51d03f3e797a145cb881",
                 "responses": {
                     "200": {
-                        "description": "Operación exitosa",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
+                        "description": "Operación exitosa"
                     },
                     "403": {
                         "description": "No autorizado"
+                    },
+                    "404": {
+                        "description": "No se encontraron recetas"
+                    },
+                    "405": {
+                        "description": "Método no permitido"
                     }
                 },
                 "security": [
@@ -132,12 +133,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Receta",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
+                        "description": "Receta"
                     },
                     "403": {
                         "description": "No autorizado"
@@ -213,12 +209,7 @@
                 },
                 "responses": {
                     "202": {
-                        "description": "Receta actualizada",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
+                        "description": "Receta actualizada"
                     },
                     "403": {
                         "description": "No autorizado"
@@ -253,12 +244,7 @@
                 ],
                 "responses": {
                     "204": {
-                        "description": "Receta eliminada con éxito",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
+                        "description": "Receta eliminada con éxito"
                     },
                     "403": {
                         "description": "No autorizado"
