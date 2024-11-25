@@ -29,13 +29,13 @@ class DatabaseSeeder extends Seeder
             'email' => 'iraic@gmail.com',
         ])->assignRole('Editor');
         
-        User::factory(29)->create()->each(function ($user) {
+        User::factory(5)->create()->each(function ($user) {
             $user->assignRole('Usuario');
         });
      
         Categoria::factory(10)->create();
-        Receta::factory(100)->create();
-        Etiqueta::factory(50)->create();
+        Receta::factory(10)->create();
+        Etiqueta::factory(10)->create();
 
 
         // Relación de muchos a muchos
