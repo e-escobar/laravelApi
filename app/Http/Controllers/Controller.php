@@ -13,7 +13,7 @@ namespace App\Http\Controllers;
  * )
  * 
  * @OA\Server(
- *    url="https://laravelapi.up.railway.app"
+ *    url="http://localhost:8000"
  * )
  */
 
