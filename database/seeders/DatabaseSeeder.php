@@ -28,7 +28,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'Iraic Alcantar Alcantar',
             'email' => 'iraic@gmail.com',
         ])->assignRole('Editor');
-        /*
+        
         User::factory(5)->create()->each(function ($user) {
             $user->assignRole('Usuario');
         });
@@ -45,7 +45,7 @@ class DatabaseSeeder extends Seeder
         foreach ($recetas as $receta) {
             $receta->etiquetas()->attach($etiquetas->random(rand(2, 4)));
         }
-        */
+        
 
     }
 }
